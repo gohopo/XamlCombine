@@ -234,8 +234,7 @@
 
         private string GetAppPath()
         {
-            // Current application path
-            // TODO: Need to support all types of paths not only relative.
+            // 修复以支持单文件发布
             var assembly = typeof(Combiner).GetTypeInfo().Assembly;
             var assemblyLocation = assembly.Location;
             if (!string.IsNullOrEmpty(assemblyLocation))
