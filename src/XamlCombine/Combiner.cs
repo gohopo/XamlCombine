@@ -236,9 +236,13 @@
         {
             // Current application path
             // TODO: Need to support all types of paths not only relative.
-            var appPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-            return appPath;
+            var assembly = typeof(Combiner).GetTypeInfo().Assembly;
+            var assemblyLocation = assembly.Location;
+            if (!string.IsNullOrEmpty(assemblyLocation))
+            {
+                return Path.GetDirectoryName(assemblyLocation);
+            }
+            return AppContext.BaseDirectory;
         }
 
         private string GetFilePath(string file)
