@@ -58,8 +58,10 @@
             // For each resource file
             for (var i = 0; i < resources.Length; i++)
             {
+                var resource = resources[i];
+                if (string.IsNullOrWhiteSpace(resource) || resource.StartsWith('#')) continue;
                 var current = new XmlDocument();
-                current.Load(this.GetFilePath(resources[i]));
+                current.Load(this.GetFilePath(resource));
 
                 Debug.WriteLine(string.Format("Loading resource \"{0}\"", resources[i]));
 
