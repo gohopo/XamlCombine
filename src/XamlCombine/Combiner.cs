@@ -43,7 +43,7 @@
 
             // Create result XML document
             var finalDocument = new XmlDocument();
-            var rootNode = finalDocument.CreateElement("ResourceDictionary", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
+            var rootNode = finalDocument.CreateElement("ResourceDictionary", "http://schemas.microsoft.com/winfx/2009/xaml");
             finalDocument.AppendChild(rootNode);
 
             // List of existing keys, to avoid duplicates
@@ -60,6 +60,15 @@
             {
                 var resource = resources[i];
                 if (string.IsNullOrWhiteSpace(resource) || resource.StartsWith('#')) continue;
+                if (resource.StartsWith("x:"))
+                {
+                    var parts = resource.Split('=');
+                    XmlAttribute a = finalDocument.CreateAttribute(parts[0], rootNode.NamespaceURI);
+                    a.Value = parts[1];
+                    rootNode.Attributes.Append(a);
+                    continue;
+                }
+
                 var current = new XmlDocument();
                 current.Load(this.GetFilePath(resource));
 

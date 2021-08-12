@@ -6,8 +6,12 @@ namespace XamlCombine
     {
         static void Main(string[] args)
         {
-            var sourceFile = args[0];
-            var resultFile = args[1];
+            string sourceFile = "Theme.txt", resultFile = "Theme.xaml";
+            if (args.Length == 2)
+            {
+                sourceFile = args[0];
+                resultFile = args[1];
+            }
             var combiner = new Combiner();
             combiner.Combine(sourceFile, resultFile);
         }
